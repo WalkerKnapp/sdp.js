@@ -31,10 +31,7 @@ class SarTimer {
     }
 }
 
-class SarReplay extends Buffer {
-    constructor(size) {
-        this.buffer = this.alloc(size);
-    }
+class SarReplay {
     static default() {
         return new SarReplay(0);
     }
@@ -59,32 +56,35 @@ class SarReplay extends Buffer {
             }
         }
 
-        return this.buffer;
+        return this.buf;
     }
     writeInt8(value) {
-        const data = this.alloc(1);
+        const data = Buffer.alloc(1);
         data.writeInt8(value, 0);
-        this.buffer = this.concat([this.buffer, data]);
+        this.buf = Buffer.concat([this.buf, data]);
     }
     writeInt16(value) {
-        const data = this.alloc(2);
+        const data = Buffer.alloc(2);
         data.writeInt16LE(value, 0);
-        this.buffer = this.concat([this.buffer, data]);
+        this.buf = Buffer.concat([this.buf, data]);
     }
     writeInt32(value) {
-        const data = this.alloc(4);
+        const data = Buffer.alloc(4);
         data.writeInt32LE(value, 0);
-        this.buffer = this.concat([this.buffer, data]);
+        this.buf = Buffer.concat([this.buf, data]);
     }
     writeFloat(value) {
-        const data = this.alloc(4);
+        const data = Buffer.alloc(4);
         data.writeFloatLE(value, 0);
-        this.buffer = this.concat([this.buffer, data]);
+        this.buf = Buffer.concat([this.buf, data]);
     }
     writeString(value) {
-        const data = this.alloc(value.length);
+        const data = Buffer.alloc(value.length);
         data.write(value, 0);
-        this.buffer = this.concat([this.buffer, data]);
+        this.buf = Buffer.concat([this.buf, data]);
+    }
+    constructor(size) {
+        this.buf = Buffer.alloc(size);
     }
 }
 
